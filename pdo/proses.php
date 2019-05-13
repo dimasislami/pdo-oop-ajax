@@ -224,23 +224,26 @@ if (isset($_POST['action'])) {
         echo json_encode($output);
         
     } else {
+        $image = '';
+        $statement = $connection->prepare("SELECT * FROM item 
+          WHERE id_product = '" . $_POST["id_product"] . "'");
+            $statement->execute();
+            $result = $statement->fetchAll();
+            foreach ($result as $row) {
+                $image        = $row["image"];
+            }
+
         $condition = array(
             'id_product' => $_POST['id_product']
         );
         $delete    = $BDobj->delete($tblName, $condition);
         if ($delete) {
-            if ($_POST['img_disk'] == "") {
-                echo json_encode(array(
-                    "status" => TRUE,
-                    "msg" => "Data berhasil dihapus"
-                ));
-            } else {
-                unlink("./upload/" . $_POST['img_disk']);
-                echo json_encode(array(
-                    "status" => TRUE,
-                    "msg" => "Data berhasil dihapus"
-                ));
-            }
+
+            unlink("./upload/" . $image);
+            echo json_encode(array(
+                "status" => TRUE,
+                "msg" => "Data berhasil dihapus"
+            ));
         } else {
             echo json_encode(array(
                 "status" => FALSE,

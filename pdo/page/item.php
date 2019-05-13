@@ -42,7 +42,7 @@ $(document).ready(function() {
                 action: "loadData"
             }
         },
-        pageLength: 7,
+        pageLength: 10,
         lengthMenu: [
             [5, 7, 10, 20, 100],
             ['5 Rows', '7 Rows', '10 Rows', '20 Rows', '100 Rows']
@@ -145,7 +145,6 @@ function delete_data(id) {
             data: {
                 action: "deleteData",
                 id_product: id,
-                img_disk: $('[name="img_disk"]').val()
             },
             success: function(data) {
                 if (data.status) {
@@ -177,6 +176,7 @@ function delete_data(id) {
                     <div class="form-body">
                         <input type="hidden" id="action-link" name="action" />
                         <input type="hidden" name="id_product" />
+                        <input name="img_disk" type="hidden">
                         <div class="form-group">
                             <label class="control-label col-md-3">Product</label>
                             <div class="col-md-9">
